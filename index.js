@@ -28,12 +28,12 @@ module.exports = ({
 }) => {
   let dbBitfinex = null
 
-  if (hfBitfinexDBPath && hfDSBitfinexPort) {
-    dbBitfinex = new HFDB({
-      schema: HFDBBitfinexSchema,
-      adapter: HFDBLowDBAdapter({ dbPath: hfBitfinexDBPath })
-    })
-  }
+//  if (hfBitfinexDBPath && hfDSBitfinexPort) {
+//    dbBitfinex = new HFDB({
+//      schema: HFDBBitfinexSchema,
+//      adapter: HFDBLowDBAdapter({ dbPath: hfBitfinexDBPath })
+//    })
+//  }
 
   const apiDB = new HFDB({
     schema: HFDBDummySchema,
@@ -48,14 +48,14 @@ module.exports = ({
 
   let dsBitfinex = null
 
-  if (dbBitfinex) {
-    dsBitfinex = new DataServer({
-      port: hfDSBitfinexPort,
-      db: dbBitfinex,
-      restURL: bfxRestURL,
-      wsURL: bfxWSURL
-    })
-  }
+//  if (dbBitfinex) {
+//    dsBitfinex = new DataServer({
+//      port: hfDSBitfinexPort,
+//      db: dbBitfinex,
+//      restURL: bfxRestURL,
+//      wsURL: bfxWSURL
+//    })
+//  }
 
   const exPool = new ExchangePoolServer({
     port: exPoolServerPort
