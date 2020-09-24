@@ -4,7 +4,7 @@ require('bfx-hf-util/lib/catch_uncaught_errors')
 
 const HFDB = require('bfx-hf-models')
 const DataServer = require('bfx-hf-data-server')
-const HFDBLowDBAdapter = require('bfx-hf-models-adapter-lowdb')
+const HFDBLowDBAdapter = require('bfx-hf-models-adapter-sql')
 const { schema: HFDBBitfinexSchema } = require('bfx-hf-ext-plugin-bitfinex')
 const { schema: HFDBDummySchema } = require('bfx-hf-ext-plugin-dummy')
 
@@ -28,12 +28,15 @@ module.exports = ({
 }) => {
   let dbBitfinex = null
 
-//  if (hfBitfinexDBPath && hfDSBitfinexPort) {
-//    dbBitfinex = new HFDB({
-//      schema: HFDBBitfinexSchema,
-//      adapter: HFDBLowDBAdapter({ dbPath: hfBitfinexDBPath })
-//    })
-//  }
+  if (hfDSBitfinexPort) {
+    dbBitfinex = new HFDB({
+                   schema: HFDBBitfinexSchema,
+                   adapter: HFDBSQLAdapter({
+                     connection: 'postgres://hfdataserver:hfdataserver@localhost:5432/hfdataserver',
+                     clientType: 'pg'
+                   })
+                 })
+  }
 
   const apiDB = new HFDB({
     schema: HFDBDummySchema,
@@ -48,14 +51,14 @@ module.exports = ({
 
   let dsBitfinex = null
 
-//  if (dbBitfinex) {
-//    dsBitfinex = new DataServer({
-//      port: hfDSBitfinexPort,
-//      db: dbBitfinex,
-//      restURL: bfxRestURL,
-//      wsURL: bfxWSURL
-//    })
-//  }
+  if (dbBitfinex) {
+    dsBitfinex = new DataServer({
+      port: hfDSBitfinexPort,
+      db: dbBitfinex,
+      restURL: bfxRestURL,
+      wsURL: bfxWSURL
+    })
+  }
 
   const exPool = new ExchangePoolServer({
     port: exPoolServerPort

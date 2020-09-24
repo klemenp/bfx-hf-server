@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/bitfinexcom/bfx-hf-server.git"
+    "url": "https://github.com/klemenp/bfx-hf-server.git"
   },
   "bugs": {
     "url": "https://github.com/bitfinexcom/bfx-hf-server/issues"
@@ -30,6 +30,7 @@
     "bfx-hf-indicators": "^2.0.1",
     "bfx-hf-models": "^2.1.2",
     "bfx-hf-models-adapter-lowdb": "^1.0.0",
+    "bfx-hf-models-adapter-sql": "^1.0.1",
     "bfx-hf-util": "^1.0.1",
     "bfx-hf-ui-config": "^1.0.0",
     "bignumber.js": "^9.0.0",
